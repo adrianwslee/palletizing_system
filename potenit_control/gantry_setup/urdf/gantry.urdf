@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<robot name="gantry">
+
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+  <material name="orange">
+    <color rgba="1.0 0.4 0.0 1.0"/>
+  </material>
+
+  <link name="gantry_base"/>
+  <joint name="fixed" type="fixed">
+    <parent link="gantry_base"/>
+    <child link="gantry_center"/>
+  </joint>
+
+
+  <link name="gantry_center">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="2.5 0.3 0.3"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="horizontal_extension" type="prismatic">
+    <parent link="gantry_center"/>
+    <child link="horizontal_link"/>
+    <limit effort="1000.0" lower="-1.0" upper="1.0" velocity="10.0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="horizontal_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.4 0.4 0.3"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+  </link>
+
+  <joint name="vertical_extension" type="prismatic">
+    <parent link="horizontal_link"/>
+    <child link="vertical_link"/>
+    <limit effort="1000.0" lower="-1.0" upper="1.0" velocity="10.0"/>
+    <origin rpy="0 0 1.57" xyz="0 0 0.3"/>
+  </joint>
+
+  <link name="vertical_link">
+    <visual>
+      <origin rpy="1.57 0 1.57"/>
+      <geometry>
+        <box size="0.4 0.4 0.3"/>
+      </geometry>
+    </visual>
+  </link>
+
+</robot>

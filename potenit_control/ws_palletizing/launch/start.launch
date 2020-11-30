@@ -1,0 +1,11 @@
+<launch>
+    <arg name="ns" default="dsr01"/>
+    <arg name="model" default="m1013"/>
+
+<group ns="$(arg ns)$(arg model)">
+  <node name="palletizing_ws_control" pkg="ws_palletizing" type="ws_control.py" respawn="false" output="screen">
+    <remap from="/collision_object" to="/dsr01m1013/collision_object"/>
+    <remap from="/attached_collision_object" to="/dsr01m1013/attached_collision_object"/>
+  </node>
+</group>
+</launch>

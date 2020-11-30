@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<robot name="gantry" xmlns:xacro="http://www.ros.org/wiki/xacro">
+		<link name="gantry_base"/>
+		
+		<joint name="fixed" type="fixed">
+			<parent link="gantry_base"/>
+			<child link="horizontal_bar"/>
+		</joint>
+
+
+		<link name="horizontal_bar">
+			<visual>
+				<origin rpy="0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<!--box size="2.5 0.3 0.3"/-->
+				<box size="0.3 0.3 0.3"/>
+			</geometry>
+			</visual>
+		</link>
+
+		<joint name="camera_joint" type="fixed">
+			<parent link="gantry_base"/>
+			<child link="camera_link"/>
+			<limit effort="1000" lower="-10" upper="10" velocity="10.0"/>
+			<origin rpy="-2.56528861 -0.121632 -1.5708" xyz="-1.1 1.3 0.7"/>
+		</joint>
+
+		<link name="camera_link">
+			<visual>
+				<origion rpy="0 0 0" xyz="0 0 0"/>
+				<geometry>
+					<cylinder radius="0.032" length="0.02"/>
+				</geometry>
+			</visual>
+		</link>
+
+		<joint name="horizontal_extension" type="fixed"> <!--prismatic-->
+			<parent link="horizontal_bar"/>
+			<child link="horizontal_link"/>
+			<limit effort="1000.0" lower="-1.0" upper="1.0" velocity="10.0"/>
+			<!--origin rpy="3.141592 0 0" xyz="0 0 0"/--> <!--FLIPPED-->
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+		</joint>
+
+		<link name="horizontal_link">
+			<visual>
+				<origin rpy="0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<box size="0.4 0.4 0.3"/>
+			</geometry>
+			</visual>
+		</link>
+
+		<joint name="vertical_horizontal_joint" type="fixed">
+			<parent link="horizontal_link"/>
+			<child link="vertical_bar"/>
+		</joint>
+
+		<link name="vertical_bar">
+			<inertial>
+				<origin rpy="0 0 1.57" xyz="0 0 0.2"/>
+				<mass value="1"/>
+				<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+			</inertial>
+			<visual>
+				<origin rpy="0 0 1.57" xyz="0 0 0"/>
+				<geometry>
+					<!--box size="2.5 0.3 0.3"/-->
+					<box size="0.3 0.3 0.3"/>
+				</geometry>
+			</visual>
+		</link>
+
+		<joint name="vertical_extension" type="fixed"><!--prismatic-->
+			<parent link="vertical_bar"/>
+			<child link="vertical_link"/>
+			<limit effort="1000.0" lower="-1.0" upper="1.0" velocity="10.0"/>
+			<origin rpy="0 0 1.57" xyz="0 0 0"/>
+		</joint>
+
+		<link name="vertical_link">
+			<visual>
+				<origin rpy="0 0 0"/>
+				<geometry>
+					<box size="0.4 0.4 0.3"/>
+				</geometry>
+			</visual>
+		</link>
+</robot>

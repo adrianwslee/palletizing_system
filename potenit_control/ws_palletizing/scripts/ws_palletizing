@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+
+import sys
+import ws_palletizing.ws_control
+
+if __name__ == '__main__':
+    print("yee")
+    ws_palletizing.ws_control.main()
+
