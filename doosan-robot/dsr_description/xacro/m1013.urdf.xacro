@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="m1013" >
+
+  <xacro:arg name="color"   default="white"/>
+  <xacro:arg name="gripper" default="none"/>
+
+
+  <xacro:property name="cr" value="$(arg color)"/>
+  <xacro:property name="gr" value="$(arg gripper)"/>
+  
+  <xacro:if value="${cr == 'white'}">
+     <xacro:include filename="$(find dsr_description)/xacro/macro.m1013.white.xacro" />
+  </xacro:if>
+  <xacro:if value="${cr == 'blue'}">
+     <xacro:include filename="$(find dsr_description)/xacro/macro.m1013.blue.xacro" />
+  </xacro:if>
+  <xacro:m1013 namespace="$(arg namespace)"/>
+
+  <link name="world" />
+  <xacro:if value="${gr == 'robotiq_2f'}">
+     <xacro:include filename="$(find dsr_description)/xacro/robotiq_2f.urdf.xacro" />
+  </xacro:if>
+  
+  <xacro:include filename="$(find gantry_setup)/xacro/macro.gantry.xacro"/>
+
+  <!-- World fixed joint-->
+  <joint name="world_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="world"/>
+    <child link="gantry_base"/>
+  </joint>
+
+  <joint name="gantry_arm" type="fixed">
+  	<origin xyz="0 0 0.2" rpy='0 0 -1.5707'/>
+  	<parent link="vertical_link"/>
+  	<child link="base_0"/>
+  </joint>
+  
+</robot>
+
